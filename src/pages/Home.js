@@ -1,3 +1,8 @@
+import Auth from '../services/AuthService.js';
+import {
+    LogOut,
+} from "lucide-react";
+
 export default function Home() {
     return (
         <div className="flex flex-col items-center justify-center min-h-screen">
@@ -7,6 +12,14 @@ export default function Home() {
                     O Recarga Hub conecta donos de veículos elétricos a pontos de recarga de maneira fácil e rápida.
                     Explore nosso sistema e aproveite a energia que o futuro oferece!
                 </p>
+
+                <button
+                    onClick={() => Auth.logout()}
+                    className="flex items-center w-full px-4 py-2 text-left hover:bg-gray-100"
+                >
+                    <LogOut className='mr-2' size={15} />
+                    Sair
+                </button>
             </div>
         </div>
     );
