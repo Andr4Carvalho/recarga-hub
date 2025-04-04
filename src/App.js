@@ -16,7 +16,7 @@ const App = () => {
     useEffect(() => {
         const token = localStorage.getItem("token");
 
-        if (Auth.isTokenExpired(token) && location.pathname !== "/login") {
+        if (Auth.isTokenExpired(token) && (location.pathname !== "/login" && location.pathname !== "/register")) {
             window.location.href = "/login";
         } else {
             setLoading(false);
