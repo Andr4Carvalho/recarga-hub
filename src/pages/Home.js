@@ -15,7 +15,7 @@ export default function Home() {
 
                 <button
                     onClick={() => Auth.logout()}
-                    className="flex items-center w-full px-4 py-2 text-left hover:bg-gray-100"
+                    className="flex items-center w-full px-4 py-2 hover:bg-gray-100 rounded-xl"
                 >
                     <LogOut className='mr-2' size={15} />
                     Sair
