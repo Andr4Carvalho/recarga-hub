@@ -171,7 +171,6 @@ export default function ReservaPage() {
                             {reservaParaAvaliar.ponto_recarga_nome}
                         </p>
 
-                        {/* Estrelas */}
                         <div className="flex justify-center gap-2">
                             {[1, 2, 3, 4, 5].map((estrela) => (
                                 <button
@@ -189,9 +188,7 @@ export default function ReservaPage() {
                             ))}
                         </div>
 
-                        {/* Opções rápidas */}
                         <div className="grid grid-cols-2 gap-3">
-                            {/* Positivas */}
                             {['Carregador funcionando', 'Espaço limpo'].map((label) => (
                                 <button
                                     key={label}
@@ -206,7 +203,6 @@ export default function ReservaPage() {
                                 </button>
                             ))}
 
-                            {/* Negativa */}
                             <button
                                 onClick={() => toggleTag('Houve problemas')}
                                 className={`flex items-center gap-2 px-3 py-2 rounded-lg border transition col-span-2 ${tags.includes('Houve problemas')
@@ -218,7 +214,6 @@ export default function ReservaPage() {
                             </button>
                         </div>
 
-                        {/* Comentário */}
                         <textarea
                             className="w-full border border-gray-300 rounded-lg p-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
                             placeholder="Comentário (opcional)"
@@ -227,7 +222,6 @@ export default function ReservaPage() {
                             onChange={(e) => setComentario(e.target.value)}
                         />
 
-                        {/* Ações */}
                         <div className="flex justify-end gap-2 pt-2">
                             <button
                                 onClick={() => setReservaParaAvaliar(null)}
@@ -275,7 +269,6 @@ export default function ReservaPage() {
                             {reservas.map((r) => {
                                 const agora = new Date();
 
-                                // Monta data + horário corretamente
                                 const dataReserva = new Date(r.data_reserva);
                                 const [hInicio, mInicio] = r.horario_inicio.split(':');
                                 const [hFim, mFim] = r.horario_fim.split(':');

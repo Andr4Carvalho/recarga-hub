@@ -139,7 +139,6 @@ export default function VeiculoPage() {
                 ))}
             </div>
 
-            {/* Modal de formulário */}
             {modalAberto && (
                 <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
                     <div className="bg-white rounded-3xl p-8 w-full max-w-md shadow-xl">
@@ -216,7 +215,6 @@ export default function VeiculoPage() {
                 </div>
             )}
 
-            {/* Modal de confirmação de exclusão */}
             {idParaExcluir !== null && (
                 <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
                     <div className="bg-white rounded-2xl p-6 w-full max-w-sm shadow-xl text-center">

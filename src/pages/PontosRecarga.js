@@ -132,7 +132,6 @@ const PontosRecarga = () => {
                 </table>
             </div>
 
-            {/* Modal de Confirmação */}
             {deleteId !== null && (
                 <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
                     <div className="bg-white rounded-xl shadow-xl p-6 w-full max-w-md">
@@ -163,7 +162,6 @@ const PontosRecarga = () => {
                 </div>
             )}
 
-            {/* Modal de Formulário */}
             {formModal !== null && (
                 <FormPontoModal
                     onClose={() => setFormModal(null)}
