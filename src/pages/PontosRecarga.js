@@ -16,7 +16,26 @@ const PontosRecarga = () => {
             .catch(err => console.error("Erro ao buscar pontos:", err));
     }, []);
 
-    const handleSave = (ponto) => {
+    const geocodeEndereco = async (endereco) => {
+        const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(endereco)}&format=json`);
+        const data = await response.json();
+        if (data && data.length > 0) {
+            const { lat, lon } = data[0];
+            return { latitude: parseFloat(lat), longitude: parseFloat(lon) };
+        }
+        return null;
+    };
+
+    const handleSave = async (ponto) => {
+        const coords = await geocodeEndereco(ponto.endereco);
+        if (!coords) {
+            alert('Não foi possível localizar o endereço.');
+            return;
+        }
+
+        ponto.latitude = coords.latitude;
+        ponto.longitude = coords.longitude;
+
         if (formModal === "create") {
             axiosInstance.post("/pontosderecarga", ponto)
                 .then(res => {

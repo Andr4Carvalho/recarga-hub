@@ -60,6 +60,26 @@ export default function ReservaPage() {
         setVeiculos(response.data)
     }
 
+    const enviarAvaliacao = async (id, idPontoRecarga, userid, nota, comentario, tags) => {
+        try {
+            await axiosInstance.post('/Avaliacoes', {
+                reservaId: id,
+                pontoRecargaId: idPontoRecarga,
+                usuarioId: userid,
+                nota,
+                comentario,
+                tags
+            });
+
+            setReservaParaAvaliar(null);
+            setNota(0);
+            setComentario('');
+            setTags([]);
+        } catch (error) {
+            console.error('Erro ao salvar reserva:', error);
+        }
+    }
+
     useEffect(() => {
         carregarReservas()
         carregarPontos()
@@ -177,8 +197,8 @@ export default function ReservaPage() {
                                     key={label}
                                     onClick={() => toggleTag(label)}
                                     className={`flex items-center gap-2 px-3 py-2 rounded-lg border transition ${tags.includes(label)
-                                            ? 'bg-green-100 text-green-800 border-green-300'
-                                            : 'bg-white text-gray-700 border-gray-300'
+                                        ? 'bg-green-100 text-green-800 border-green-300'
+                                        : 'bg-white text-gray-700 border-gray-300'
                                         }`}
                                 >
                                     {label === 'Carregador funcionando' ? <Zap size={18} /> : <ThumbsUp size={18} />}
@@ -190,8 +210,8 @@ export default function ReservaPage() {
                             <button
                                 onClick={() => toggleTag('Houve problemas')}
                                 className={`flex items-center gap-2 px-3 py-2 rounded-lg border transition col-span-2 ${tags.includes('Houve problemas')
-                                        ? 'bg-red-100 text-red-800 border-red-300'
-                                        : 'bg-white text-gray-700 border-gray-300'
+                                    ? 'bg-red-100 text-red-800 border-red-300'
+                                    : 'bg-white text-gray-700 border-gray-300'
                                     }`}
                             >
                                 <ThumbsDown size={18} /> Houve problemas
@@ -217,11 +237,7 @@ export default function ReservaPage() {
                             </button>
                             <button
                                 onClick={() => {
-                                    console.log({ nota, comentario, tags });
-                                    setReservaParaAvaliar(null);
-                                    setNota(0);
-                                    setComentario('');
-                                    setTags([]);
+                                    enviarAvaliacao(reservaParaAvaliar.id, reservaParaAvaliar.ponto_recarga_id, reservaParaAvaliar.usuario_id, nota, comentario, tags)
                                 }}
                                 className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
                             >
@@ -304,7 +320,12 @@ export default function ReservaPage() {
                                             ) : (
                                                 <button
                                                     onClick={() => setReservaParaAvaliar(r)}
-                                                    className="inline-flex items-center px-3 py-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+                                                    disabled={r.avaliada}
+                                                    className={`inline-flex items-center px-3 py-1.5 rounded-lg transition ${r.avaliada
+                                                            ? 'bg-gray-400 text-white cursor-not-allowed'
+                                                            : 'bg-blue-600 text-white hover:bg-blue-700'
+                                                        } disabled:opacity-100`}
+                                                    title={r.avaliada ? "Você já avaliou este ponto" : "Clique para avaliar o ponto"}
                                                 >
                                                     <Star size={16} className="mr-2" /> Avaliar Ponto
                                                 </button>
